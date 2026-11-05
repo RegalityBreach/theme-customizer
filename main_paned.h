@@ -1,6 +1,7 @@
 #pragma once
 
 #include "wallpapers.h"
+#include "settings.h"
 #include <gtkmm/paned.h>
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
@@ -27,4 +28,5 @@ private:
 
 	// Stack windows
 	Wallpapers m_wallpapers;
+	Settings m_settings;
 };

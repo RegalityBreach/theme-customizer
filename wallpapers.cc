@@ -1,7 +1,8 @@
 #include "wallpapers.h"
+#include <pangomm.h>
 #include <gtkmm/box.h>
 #include <gtkmm/label.h>
-#include <gtkmm/image.h>
+#include <gtkmm/picture.h>
 #include <gtkmm/button.h>
 #include <gdkmm/pixbuf.h>
 #include <filesystem>
@@ -22,8 +23,20 @@ Wallpapers::Wallpapers()
 
 	m_content.set_orientation(Gtk::Orientation::VERTICAL);
 	m_content.set_vexpand(true);
-	m_container.set_child(m_content);
+    m_content.set_hexpand(true);
+    m_content.set_halign(Gtk::Align::FILL);
 
+	m_container.set_child(m_content);
+    m_container.set_hexpand(true);
+    m_container.set_halign(Gtk::Align::FILL);
+    m_container.set_policy(
+        Gtk::PolicyType::NEVER,
+        Gtk::PolicyType::AUTOMATIC
+    );
+
+    m_label.set_hexpand(true);
+
+    // CSS styling for the container and label
 	m_content.set_name("wallpapers-content");
 	m_container.set_name("wallpapers-container");
 	m_label.set_name("wallpapers-label");
@@ -71,22 +84,29 @@ void Wallpapers::PopulateContainer()
                 for (auto const& item : items) {
                     auto* entry_box = Gtk::manage(new Gtk::Box(Gtk::Orientation::HORIZONTAL));
                     entry_box->add_css_class("wallpaper-entry");
+                    entry_box->set_hexpand(true);
+                    entry_box->set_halign(Gtk::Align::FILL);
 
                     auto* name_label = Gtk::manage(new Gtk::Label(item.name));
-                    name_label->set_halign(Gtk::Align::CENTER);
-                    name_label->set_valign(Gtk::Align::CENTER);
                     name_label->set_hexpand(true);
+                    name_label->set_halign(Gtk::Align::FILL);
+                    name_label->set_valign(Gtk::Align::CENTER);
 
-                    auto* image = Gtk::manage(new Gtk::Image(item.pixbuf));
-                    image->set_halign(Gtk::Align::START);
-                    image->set_valign(Gtk::Align::CENTER);
-                    image->set_pixel_size(100);
+                    name_label->set_ellipsize(Pango::EllipsizeMode::MIDDLE);
+                    name_label->set_single_line_mode(true);
+
+                    auto* picture = Gtk::manage(new Gtk::Picture(item.pixbuf));
+
+                    picture->set_content_fit(Gtk::ContentFit::CONTAIN);
+                    picture->set_size_request(100, 75);
+                    picture->set_can_shrink(true);
 
                     auto* button = Gtk::manage(new Gtk::Button("Apply"));
                     button->set_halign(Gtk::Align::END);
                     button->set_valign(Gtk::Align::CENTER);
+                    button->set_hexpand(false);
 
-                    entry_box->append(*image);
+                    entry_box->append(*picture);
                     entry_box->append(*name_label);
                     entry_box->append(*button);
                     m_content.append(*entry_box);

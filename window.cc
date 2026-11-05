@@ -9,6 +9,8 @@ MainWindow::MainWindow() {
 	set_child(m_paned);
 	set_default_size(700, 500);
 
+	m_paned.set_hexpand(true);
+
 	auto css_provider = Gtk::CssProvider::create();
 
 	std::string user_css_path = std::string(g_get_user_config_dir()) + "/sway-theme-customizer/style.css";

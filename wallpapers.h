@@ -19,8 +19,8 @@ private:
 	Gtk::Label m_label;
 	Gtk::ScrolledWindow m_container;
 	Gtk::Box m_content;
-	std::string wallpaper_folder = "/home/opsecc-demon/.config/swaybg-wallpapers";
-	std::string result_folder = "/home/";
+	std::string wallpaper_folder = "/home/opsec-warrior/.config/wallpapers";
+	std::string result_folder = "/home/opsec-warrior/.config";
 	bool is_loading = false;
 	struct WallpaperItem {
 		std::string name;
