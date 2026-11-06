@@ -1,0 +1,202 @@
+/* Wallpaper Entries & Loading */
+#loading-label,
+#settings-container,
+.entry {
+  padding: 10px 15px;
+  color: #2c3e50;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  min-width: 0;
+}
+
+.entry:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
+.wallpaper-entry label {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.wallpaper-entry button {
+  padding: 10px 10px;
+}
+
+.header {
+  padding: 12px 15px;
+  color: #475569;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+#wallpapers-content {
+  background-color: #f8fafc;
+}
+
+/* Remove Paned Separator */
+#main-paned separator {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  min-width: 0px;
+  min-height: 0px;
+}
+
+/* Layout Containers */
+#sidebar {
+  background-image: none;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+}
+
+#stack {
+  background-image: none;
+  background-color: #f8fafc;
+}
+
+/* Sidebar Buttons */
+#sidebar button {
+  background-image: none;
+  background-color: transparent;
+  color: #334155;
+  border: none;
+  box-shadow: none;
+  border-radius: 6px;
+  margin: 4px 8px;
+  padding: 8px 12px;
+  transition: 0.2s;
+}
+
+#sidebar button image {
+  color: inherit;
+}
+
+#sidebar button:hover {
+  color: #1e293b;
+  background-color: #f1f5f9;
+}
+
+#sidebar button:active,
+#sidebar button:selected {
+  color: #ffffff;
+  background-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+#sidebar #options:active,
+#sidebar #options:selected {
+  color: #1e293b;
+  background-color: #cdd0d3;
+}
+
+.folder-entry .header {
+  margin: 0;
+  padding: 0;
+}
+
+#folders-label {
+  margin: 0;
+  padding: 0 15px;
+}
+
+entry {
+  color: #2c3e50;
+  background-color: #fafafa;
+  background-image: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  padding: 0 12px;
+  caret-color: #3b82f6;
+  transition: all 0.2s ease;
+}
+
+entry:hover {
+  border-color: #cbd5e1;
+}
+
+entry:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+entry:disabled {
+  color: #94a3b8;
+  background-color: #ababab;
+}
+
+/* General Element Visuals */
+button {
+  background-image: none;
+  background-color: transparent;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  margin: 4px 8px;
+  padding: 8px 12px;
+  transition: 0.2s;
+  border-radius: 6px;
+}
+
+button:hover {
+  background-image: none;
+  color: #1e293b;
+  background-color: #f1f5f9;
+  border: 1px solid #fff0;
+  box-shadow: inherit;
+  margin: 4px 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: 0.2s;
+  border-radius: 6px;
+}
+
+button:active,
+button:selected {
+  background-image: none;
+  color: #ffffff;
+  background-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+  border: none;
+  margin: 4px 8px;
+  padding: 8px 12px;
+  transition: 0.2s;
+  border-radius: 6px;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+.inline-button {
+  margin: 0;
+  margin-top: 5px;
+}
+
+.inline-button:hover {
+  margin: 0;
+  margin-top: 5px;
+}
+
+.inline-button.right {
+  margin-right: 5px;
+}
+
+.inline-button.right:hover {
+  margin-right: 5px;
+}
+
+.inline-button.left {
+  margin-left: 5px;
+}
+
+.inline-button.left:hover {
+  margin-left: 5px;
+}

@@ -1,5 +1,5 @@
 project(
-  'sway-theme-customizer',
+  'theme-customizer',
   'cpp',
   default_options: ['cpp_std=c++17'],
 )
@@ -7,14 +7,11 @@ project(
 gtkmm_dep = dependency('gtkmm-4.0')
 
 executable(
-  'sway-theme-customizer',
-  'main.cc',
-  'main_paned.cc',
-  'settings.cc',
-  'wallpapers.cc',
-  'window.cc',
+  'theme-customizer',
+  'src/main.cc',
+  'src/main_paned.cc',
+  'src/settings.cc',
+  'src/wallpapers.cc',
+  'src/window.cc',
   dependencies: gtkmm_dep,
 )
-
-configure_file(input: 'gear-solid.png', output: 'gear-solid.png', copy: true)
-configure_file(input: 'style.css', output: 'style.css', copy: true)

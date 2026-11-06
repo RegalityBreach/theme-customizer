@@ -1,14 +1,12 @@
 #include "main_paned.h"
 #include <thread>
 #include <glibmm/main.h>
-#include <gdkmm/pixbuf.h>
 
 MainPaned::MainPaned() 
 	: Gtk::Paned{Gtk::Orientation::HORIZONTAL},
 		m_button_wallpapers{"Wallpapers"}
 {
-	auto pixbuf = Gdk::Pixbuf::create_from_file("gear-solid.png", 100, 100, true);
-	m_gear_icon.set(pixbuf);
+	m_gear_icon.set_from_icon_name("emblem-system-symbolic");
 	m_gear_icon.set_pixel_size(15);
 
 	set_name("main-paned");

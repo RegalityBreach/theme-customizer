@@ -51,7 +51,11 @@ Wallpapers::Wallpapers(Settings& settings)
 void Wallpapers::ConvertToPng(std::string filename, std::string output_path) const {
     std::string command = "ffmpeg -y -i \"" + filename + "\" \"" + output_path + "/wallpaper.png\"";
     if (std::system(command.c_str()) == 0) {
-        std::system(m_settings.GetWallpaperReloadCommand().c_str());
+        std::string command =
+            "setsid sh -c '" + m_settings.GetWallpaperReloadCommand() +
+            "' >/dev/null 2>&1 &";
+
+        std::system(command.c_str());
     }
 }
 
