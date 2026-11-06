@@ -18,7 +18,7 @@ private:
 	Gtk::Stack m_stack;
 
 	// Sidebar buttons
-	Gtk::Label m_header_label{"Sway Theme Customizer"};
+	Gtk::Label m_header_label{"Theme Customizer"};
 	Gtk::Button m_button_wallpapers;
 
 	// settings
