@@ -1,5 +1,6 @@
 #pragma once
 
+#include "settings.h"
 #include <gtkmm/box.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/label.h>
@@ -9,7 +10,7 @@
 class Wallpapers : public Gtk::Box
 {
 public:
-	Wallpapers();
+	Wallpapers(Settings& settings);
 	~Wallpapers() override = default;
 
 	void PopulateContainer();
@@ -19,11 +20,12 @@ private:
 	Gtk::Label m_label;
 	Gtk::ScrolledWindow m_container;
 	Gtk::Box m_content;
-	std::string wallpaper_folder = "/home/opsec-warrior/.config/wallpapers";
-	std::string result_folder = "/home/opsec-warrior/.config";
 	bool is_loading = false;
 	struct WallpaperItem {
 		std::string name;
+		std::string path;
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf;
 	};
+	void ConvertToPng(std::string filename, std::string output_path) const;
+	Settings& m_settings;
 };

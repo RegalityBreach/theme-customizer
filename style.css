@@ -1,7 +1,7 @@
 /* Wallpaper Entries & Loading */
-.wallpaper-entry,
 #loading-label,
-#settings-container {
+#settings-container,
+.entry {
   padding: 10px 15px;
   color: #2c3e50;
   background-color: #ffffff;
@@ -13,6 +13,11 @@
   min-width: 0;
 }
 
+.entry:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
 .wallpaper-entry label {
   margin-left: 10px;
   margin-right: 10px;
@@ -20,15 +25,6 @@
 
 .wallpaper-entry button {
   padding: 10px 10px;
-}
-
-.wallpaper-entry button:hover {
-  padding: 10px 15px;
-}
-
-.wallpaper-entry:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
 }
 
 .header {
@@ -95,13 +91,23 @@
   background-color: #cdd0d3;
 }
 
+.folder-entry .header {
+  margin: 0;
+  padding: 0;
+}
+
+#folders-label {
+  margin: 0;
+  padding: 0 15px;
+}
+
 /* General Element Visuals */
 button {
   background-image: none;
   background-color: transparent;
   color: #334155;
-  border: none;
-  box-shadow: none;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   margin: 4px 8px;
   padding: 8px 12px;
   transition: 0.2s;
@@ -112,10 +118,11 @@ button:hover {
   background-image: none;
   color: #1e293b;
   background-color: #f1f5f9;
-  border: none;
-  box-shadow: none;
+  border: 1px solid #fff0;
+  box-shadow: inherit;
   margin: 4px 8px;
-  padding: 8px 12px;
+  padding-left: 15px;
+  padding-right: 15px;
   transition: 0.2s;
   border-radius: 6px;
 }
@@ -136,6 +143,4 @@ button:selected {
 button:focus,
 button:focus-visible {
   outline: none;
-  box-shadow: none;
-  border-color: transparent;
 }

@@ -1,4 +1,5 @@
 #include "wallpapers.h"
+#include "settings.h"
 #include <pangomm.h>
 #include <gtkmm/box.h>
 #include <gtkmm/label.h>
@@ -13,9 +14,10 @@
 #include <vector>
 #include <utility>
 
-Wallpapers::Wallpapers()
+Wallpapers::Wallpapers(Settings& settings)
 	: Gtk::Box{Gtk::Orientation::VERTICAL},
-		m_label{"Select a wallpaper."}
+		m_label{"Select a wallpaper."},
+		m_settings{settings}
 {
 	set_name("wallpapers");
 
@@ -46,10 +48,33 @@ Wallpapers::Wallpapers()
 	append(m_container);
 }
 
+void Wallpapers::ConvertToPng(std::string filename, std::string output_path) const {
+    std::string command = "ffmpeg -y -i \"" + filename + "\" \"" + output_path + "/wallpaper.png\"";
+    if (std::system(command.c_str()) == 0) {
+        std::system(m_settings.GetWallpaperReloadCommand().c_str());
+    }
+}
+
 void Wallpapers::PopulateContainer()
 {
-    if (wallpaper_folder == "" || result_folder == "" || IsLoading()) {
-        std::cout << "bye";
+    std::string wallpaper_folder = m_settings.GetWallpapersFolderPath();
+    std::string result_folder = m_settings.GetResultFolderPath();
+
+    if (IsLoading()) {
+        return; // Prevent multiple simultaneous loads
+    }
+
+    if (wallpaper_folder == "") {
+        auto* loading_label = Gtk::manage(new Gtk::Label("Please select a valid wallpapers folder in the settings."));
+        loading_label->set_name("loading-label");
+        m_content.append(*loading_label);
+        return;
+    }
+
+    if (result_folder == "") {
+        auto* loading_label = Gtk::manage(new Gtk::Label("Please select a valid result folder in the settings."));
+        loading_label->set_name("loading-label");
+        m_content.append(*loading_label);
         return;
     }
 
@@ -63,7 +88,7 @@ void Wallpapers::PopulateContainer()
     loading_label->set_name("loading-label");
     m_content.append(*loading_label);
 
-    std::thread([this, loading_label]() {
+    std::thread([this, loading_label, wallpaper_folder, result_folder]() {
         try {
             std::vector<WallpaperItem> items;
 
@@ -72,7 +97,7 @@ void Wallpapers::PopulateContainer()
                     try {
                         if (entry.is_regular_file()) {
                             auto pixbuf = Gdk::Pixbuf::create_from_file(entry.path().string(), 100, 100, true);
-                            items.push_back({entry.path().filename().string(), pixbuf});
+                            items.push_back({entry.path().filename().string(), entry.path().string(), pixbuf});
                         }
                     } catch (...) {
                         // Skip unreadable files safely
@@ -80,10 +105,11 @@ void Wallpapers::PopulateContainer()
                 }
             }
 
-            Glib::signal_idle().connect_once([this, items = std::move(items), loading_label]() {
+            Glib::signal_idle().connect_once([this, items = std::move(items), loading_label, result_folder]() {
                 for (auto const& item : items) {
                     auto* entry_box = Gtk::manage(new Gtk::Box(Gtk::Orientation::HORIZONTAL));
                     entry_box->add_css_class("wallpaper-entry");
+                    entry_box->add_css_class("entry");
                     entry_box->set_hexpand(true);
                     entry_box->set_halign(Gtk::Align::FILL);
 
@@ -96,7 +122,6 @@ void Wallpapers::PopulateContainer()
                     name_label->set_single_line_mode(true);
 
                     auto* picture = Gtk::manage(new Gtk::Picture(item.pixbuf));
-
                     picture->set_content_fit(Gtk::ContentFit::CONTAIN);
                     picture->set_size_request(100, 75);
                     picture->set_can_shrink(true);
@@ -105,6 +130,9 @@ void Wallpapers::PopulateContainer()
                     button->set_halign(Gtk::Align::END);
                     button->set_valign(Gtk::Align::CENTER);
                     button->set_hexpand(false);
+                    button->signal_clicked().connect([this, item, result_folder]() {
+                        ConvertToPng(item.path, result_folder);
+                    });
 
                     entry_box->append(*picture);
                     entry_box->append(*name_label);

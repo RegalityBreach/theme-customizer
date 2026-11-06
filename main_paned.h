@@ -27,6 +27,6 @@ private:
 	Gtk::Image m_gear_icon;
 
 	// Stack windows
-	Wallpapers m_wallpapers;
 	Settings m_settings;
+	Wallpapers m_wallpapers{m_settings};
 };
